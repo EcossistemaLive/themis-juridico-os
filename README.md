@@ -3,7 +3,8 @@
 
 > **Produto Oficial do Ecossistema Live / Live Consultoria**  
 > **Versão Comercial:** 2.0 (Multi-Tenant & On-Premise Edge)  
-> **Status:** Pronto para Venda em Massa e Escala Nacional
+> **Status:** Pronto para Venda em Massa e Escala Nacional  
+> 🔗 **Apresentação Executiva Online:** [https://ecossistemalive.github.io/themis-juridico-os/](https://ecossistemalive.github.io/themis-juridico-os/)
 
 ---
 
