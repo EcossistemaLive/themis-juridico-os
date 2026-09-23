@@ -75,6 +75,25 @@
       line-height: 1.65;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* Leve Textura de Fundo para Alto Contraste & Profundidade */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background-image: 
+        radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(to right, rgba(36, 60, 114, 0.12) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(36, 60, 114, 0.12) 1px, transparent 1px);
+      background-size: 24px 24px, 48px 48px, 48px 48px;
+      opacity: 0.95;
     }
 
     /* Ambient Background Effects */
@@ -86,7 +105,7 @@
       pointer-events: none;
       z-index: 0;
       filter: blur(140px);
-      opacity: 0.15;
+      opacity: 0.16;
       transition: all 0.5s ease;
     }
     .ambient-top {
@@ -128,9 +147,9 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(7, 13, 30, 0.88);
+      background: rgba(7, 13, 30, 0.92);
       backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-medium);
       padding: 0.85rem 2.5rem;
       display: flex;
       justify-content: space-between;
@@ -139,9 +158,9 @@
     }
     header.top-nav.scrolled {
       padding: 0.65rem 2.5rem;
-      background: rgba(3, 7, 18, 0.95);
-      border-bottom-color: var(--border-medium);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      background: rgba(3, 7, 18, 0.97);
+      border-bottom-color: var(--border-bright);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     }
 
     .brand-group {
@@ -260,8 +279,8 @@
       gap: 8px;
       padding: 0.35rem 0.9rem;
       border-radius: var(--radius-full);
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.35);
       color: var(--gold-light);
       font-family: var(--font-title);
       font-size: 0.75rem;
@@ -296,8 +315,8 @@
     .hero-section {
       padding: 7rem 0 5rem 0;
       text-align: center;
-      background: radial-gradient(circle at 50% 20%, rgba(17, 32, 66, 0.6) 0%, transparent 70%);
-      border-bottom: 1px solid var(--border-subtle);
+      background: radial-gradient(circle at 50% 20%, rgba(17, 32, 66, 0.7) 0%, transparent 70%);
+      border-bottom: 1px solid var(--border-medium);
     }
     .hero-badge-container {
       display: flex;
@@ -382,7 +401,7 @@
       background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
     }
     .btn-hero-secondary {
-      background: rgba(15, 28, 58, 0.8);
+      background: rgba(15, 28, 58, 0.85);
       color: var(--text-primary);
       font-family: var(--font-title);
       font-weight: 600;
@@ -408,7 +427,7 @@
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 1.5rem;
-      background: rgba(12, 22, 46, 0.7);
+      background: rgba(12, 22, 46, 0.8);
       border: 1px solid var(--border-medium);
       border-radius: var(--radius-lg);
       padding: 2rem 2.5rem;
@@ -453,7 +472,7 @@
     }
     .crisis-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-medium);
       border-radius: var(--radius-md);
       padding: 2.2rem;
       position: relative;
@@ -473,7 +492,7 @@
       width: 4px;
       height: 100%;
       background: var(--accent-red);
-      opacity: 0.7;
+      opacity: 0.8;
     }
     .crisis-icon {
       font-size: 2rem;
@@ -494,7 +513,7 @@
       margin-bottom: 1.2rem;
     }
     .crisis-impact {
-      background: rgba(239, 68, 68, 0.1);
+      background: rgba(239, 68, 68, 0.12);
       border-radius: var(--radius-sm);
       padding: 0.65rem 1rem;
       font-size: 0.85rem;
@@ -522,7 +541,7 @@
     }
     .arch-column {
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-medium);
       border-radius: var(--radius-md);
       padding: 2rem;
       display: flex;
@@ -545,9 +564,9 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
-    .arch-tag.edge { background: rgba(56, 189, 248, 0.15); color: var(--accent-cyan); border: 1px solid rgba(56, 189, 248, 0.3); }
-    .arch-tag.squad { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); border: 1px solid rgba(168, 85, 247, 0.3); }
-    .arch-tag.cloud { background: rgba(212, 175, 55, 0.15); color: var(--gold-light); border: 1px solid rgba(212, 175, 55, 0.3); }
+    .arch-tag.edge { background: rgba(56, 189, 248, 0.15); color: var(--accent-cyan); border: 1px solid rgba(56, 189, 248, 0.35); }
+    .arch-tag.squad { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); border: 1px solid rgba(168, 85, 247, 0.35); }
+    .arch-tag.cloud { background: rgba(212, 175, 55, 0.15); color: var(--gold-light); border: 1px solid rgba(212, 175, 55, 0.35); }
 
     .arch-column h3 {
       font-family: var(--font-title);
@@ -783,12 +802,12 @@
     /* SECTION 5: SEGURANÇA E CONFORMIDADE OAB */
     .compliance-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
     }
     .compliance-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-medium);
       border-radius: var(--radius-md);
       padding: 2rem;
       transition: all 0.3s ease;
@@ -832,7 +851,7 @@
     }
     .pricing-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-medium);
       border-radius: var(--radius-lg);
       padding: 2.5rem 2rem;
       display: flex;
@@ -949,8 +968,8 @@
 
     /* Radically Transparent AI Note */
     .ai-transparency-note {
-      background: rgba(12, 22, 46, 0.6);
-      border: 1px solid var(--border-subtle);
+      background: rgba(12, 22, 46, 0.7);
+      border: 1px solid var(--border-medium);
       border-radius: var(--radius-md);
       padding: 1.5rem 2rem;
       display: flex;
@@ -1075,7 +1094,7 @@
     }
     .accordion-item {
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-medium);
       border-radius: var(--radius-md);
       overflow: hidden;
       transition: all 0.25s ease;
@@ -1302,7 +1321,7 @@
     /* FOOTER */
     footer.page-footer {
       background: #020612;
-      border-top: 1px solid var(--border-subtle);
+      border-top: 1px solid var(--border-medium);
       padding: 4rem 0 2.5rem 0;
       font-size: 0.86rem;
       color: var(--text-dim);
@@ -1367,7 +1386,7 @@
       .module-card { grid-template-columns: 1fr; }
       .pricing-grid { grid-template-columns: 1fr; }
       .roi-grid { grid-template-columns: 1fr; }
-      .compliance-grid { grid-template-columns: repeat(2, 1fr); }
+      .compliance-grid { grid-template-columns: 1fr; }
       .timeline-container::before { display: none; }
       .timeline-grid { grid-template-columns: 1fr 1fr; }
       .cta-steps-grid { grid-template-columns: 1fr; }
@@ -1435,6 +1454,7 @@
         <span class="hero-badge gold">PRODUTO OFICIAL · ECOSSISTEMA LIVE</span>
         <span class="hero-badge">PRONTO PARA ESCALA NACIONAL</span>
         <span class="hero-badge gold">PROVIMENTO OAB 205/2021 COMPLIANT</span>
+        <span class="hero-badge">BORDA SOBERANA COM SQLITE LOCAL</span>
       </div>
 
       <h1 class="hero-title">
@@ -1535,13 +1555,13 @@
         <!-- Crise 4 -->
         <div class="crisis-card">
           <div class="crisis-icon">🔒</div>
-          <h3>4. Violação de Segredo de Justiça e LGPD</h3>
+          <h3>4. Descontrole e Descentralização Operacional</h3>
           <p>
-            Advogados e estagiários colando petições inteiras com dados confidenciais de clientes e segredo de justiça em ferramentas públicas na nuvem. Os dados são usados para treinar modelos globais de terceiros, infringindo frontalmente a LGPD e o sigilo fiduciário.
+            Cada advogado e estagiário improvisando ferramentas por conta própria, sem padronização de teses, sem controle central de prazos e sem um repositório auditável de interações com os clientes do escritório.
           </p>
           <div class="crisis-impact">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-            Impacto: Multas da ANPD e quebra irreparável da reputação de confidencialidade da banca.
+            Impacto: Inconsistência técnica entre peças da mesma banca e perda de governança de qualidade.
           </div>
         </div>
       </div>
@@ -1554,7 +1574,7 @@
       <div class="section-eyebrow">Engenharia Híbrida & Borda Soberana</div>
       <h2 class="section-title">Topologia de <span class="highlight">Borda Soberana + Nuvem Serviceless</span></h2>
       <p class="section-desc">
-        A Themis Jurídico OS não é um software web vulnerável. Ela opera em uma infraestrutura híbrida onde o dado sensível do cliente nunca sai do controle físico do escritório.
+        A Themis Jurídico OS opera em uma infraestrutura híbrida onde a base local de demandas e o controle de WhatsApp rodam diretamente no ambiente do escritório.
       </p>
 
       <div class="architecture-wrapper">
@@ -1603,9 +1623,9 @@
 
           <!-- Coluna 3: Nuvem -->
           <div class="arch-column">
-            <span class="arch-tag cloud">Camada 3: Nuvem Soberana</span>
+            <span class="arch-tag cloud">Camada 3: Nuvem Dedicada</span>
             <h3>Themis Core SaaS</h3>
-            <p class="arch-desc">Processamento analítico avançado em datacenter sul-americano com Zero Data Retention.</p>
+            <p class="arch-desc">Processamento analítico avançado em nuvem dedicada para leitura de autos e redação assistida.</p>
             <ul class="arch-items">
               <li>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -1629,7 +1649,7 @@
             <div class="terminal-dot r"></div>
             <div class="terminal-dot y"></div>
             <div class="terminal-dot g"></div>
-            <span>THEMIS EDGE CORE · FLUXO SEGURO DE DADOS COM CRIPTOGRAFIA DE PONTA A PONTA</span>
+            <span>THEMIS EDGE CORE · FLUXO SEGURO DE DADOS COM EXECUÇÃO DETERMINÍSTICA</span>
           </div>
           <pre><code>// 1. EXTRAÇÃO DETERMINÍSTICA DO PRAZO (SEM ALUCINAÇÃO DE LLM)
 const { calcularPrazoFatal } = require('./engine/prazos.js');
@@ -1744,7 +1764,7 @@ const silogismo = {
           <span class="module-badge">Módulo 2 · Atendimento & Acolhimento</span>
           <h3>Agente Temis: Concierge Digital com Envelope Anti-Bloqueio</h3>
           <p>
-            Elimina a ansiedade que faz o cliente telefonar para os sócios. O acolhimento cordial acontece em menos de 2 horas no próprio WhatsApp, com garantia absoluta de preservação do número corporativo do escritório.
+            Elimina a ansiedade que faz o cliente telefonar para os sócios. O acolhimento cordial acontece em menos de 2 horas no próprio WhatsApp, com garantia de preservação do número corporativo do escritório.
           </p>
           <ul class="module-features">
             <li>
@@ -1896,10 +1916,10 @@ const silogismo = {
               <td class="highlight-td"><span class="comp-badge good">Silogismo + Folha a Folha</span><br>Ancoragem na página exata do PDF e tag <code>[DADO FALTANTE]</code></td>
             </tr>
             <tr>
-              <td><strong>Soberania & Sigilo (LGPD)</strong></td>
-              <td><span class="comp-badge bad">Risco Elevado</span><br><small style="color: var(--text-dim);">Dados usados para treinar IAs</small></td>
-              <td><span class="comp-badge warn">Nuvem Compartilhada</span><br><small style="color: var(--text-dim);">Multi-tenant sem isolamento local</small></td>
-              <td class="highlight-td"><span class="comp-badge good">Edge Dedicado + Zero Retention</span><br>Hardware local no escritório + contrato sem retenção de dados</td>
+              <td><strong>Soberania da Borda</strong></td>
+              <td><span class="comp-badge bad">Sem Controle</span><br><small style="color: var(--text-dim);">Interações soltas na nuvem pública</small></td>
+              <td><span class="comp-badge warn">Nuvem Compartilhada</span><br><small style="color: var(--text-dim);">Dependência de servidor externo</small></td>
+              <td class="highlight-td"><span class="comp-badge good">Edge Dedicado Local</span><br>Banco SQLite local (`themis.db`) na infraestrutura da própria banca</td>
             </tr>
             <tr>
               <td><strong>Auditoria Pré-Protocolo</strong></td>
@@ -1913,13 +1933,13 @@ const silogismo = {
     </div>
   </section>
 
-  <!-- SECTION 5: SEGURANÇA, LGPD & CONFORMIDADE OAB -->
+  <!-- SECTION 5: SEGURANÇA E CONFORMIDADE OAB -->
   <section id="seguranca">
     <div class="container">
       <div class="section-eyebrow">Blindagem Regulatória & Ética</div>
-      <h2 class="section-title">Em Total Conformidade com o <span class="highlight">Provimento OAB 205/2021 & LGPD</span></h2>
+      <h2 class="section-title">Em Total Conformidade com o <span class="highlight">Provimento OAB 205/2021</span></h2>
       <p class="section-desc">
-        Desenvolvido para atender às exigências de compliance de departamentos jurídicos de bancos, seguradoras e multinacionais assessoradas pelo seu escritório.
+        Arquitetura concebida sob rigorosos padrões de responsabilidade profissional e governança técnica para sociedades de advogados.
       </p>
 
       <div class="compliance-grid">
@@ -1934,28 +1954,19 @@ const silogismo = {
 
         <!-- Card 2 -->
         <div class="compliance-card">
-          <div class="compliance-icon">🛡️</div>
-          <h3>Zero Data Retention</h3>
+          <div class="compliance-icon">🖥️</div>
+          <h3>Soberania da Borda (Edge Station)</h3>
           <p>
-            Contrato empresarial de API com Anthropic e Google que garante formalmente: <strong>nenhum documento ou dado enviado é retido nem utilizado para treinar ou aprimorar inteligências artificiais públicas</strong>.
+            Instalação local em hardware ou máquina virtual do próprio escritório. O histórico de demandas e a esteira de atendimento são persistidos em banco de dados SQLite local (`themis.db`), sob controle físico da banca.
           </p>
         </div>
 
         <!-- Card 3 -->
         <div class="compliance-card">
-          <div class="compliance-icon">🔐</div>
-          <h3>Isolamento Criptográfico</h3>
+          <div class="compliance-icon">🔑</div>
+          <h3>Chave Própria de API (Transparência)</h3>
           <p>
-            Cada sociedade de advogados opera em cofre criptográfico dedicado com chave `org_id` isolada. Não existe cruzamento, compartilhamento ou vazamento de dados entre bancas distintas.
-          </p>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="compliance-card">
-          <div class="compliance-icon">🎭</div>
-          <h3>Mascaramento de PII</h3>
-          <p>
-            Algoritmos de sanitização pré-processam CPFs, contas bancárias e dados sensíveis protegidos por segredo de justiça antes de qualquer análise de nuvem, respeitando rigorosamente a Lei 13.709/2018.
+            O cliente utiliza suas próprias credenciais de API corporativa dos provedores de IA. Sem repasses ocultos, sem intermediação indevida e com governança direta do escritório sobre seus acessos e faturamento.
           </p>
         </div>
       </div>
@@ -2030,12 +2041,12 @@ const silogismo = {
         </div>
       </div>
 
-      <!-- Nota de Transparência Radical de IA -->
+      <!-- Nota de Transparência de IA -->
       <div class="ai-transparency-note">
         <div class="ai-note-icon">💡</div>
         <div class="ai-note-text">
           <p>
-            <strong>Transparência Radical no Consumo de IA:</strong> O escritório utiliza sua própria conta corporativa na Anthropic/Google (ou nós provisionamos a conta empresarial dele). Isso assegura que <strong>a sua banca nunca fica refém do fornecedor</strong>, paga o custo real de computação sem margens ocultas e tem garantia jurídica direta de não retenção de dados confidenciais.
+            <strong>Transparência no Consumo de IA:</strong> O escritório utiliza sua própria conta corporativa de API (Anthropic ou Google). Isso assegura que <strong>a sua banca nunca fica refém de margens ocultas</strong>, paga o custo exato de computação consumido e tem autonomia total sobre seus acessos.
           </p>
         </div>
       </div>
@@ -2128,9 +2139,9 @@ const silogismo = {
             <span class="accordion-icon">▼</span>
           </div>
           <div class="accordion-body">
-            O ChatGPT é um assistente textual genérico: ele não vigia seus grupos de WhatsApp, não sabe quem é preposto ou sócio na sua base, não tem integração com ERPs e, o mais grave, <strong>ele alucina prazos e inventa jurisprudência</strong>. Além disso, colar petições de clientes em chats públicos fere o sigilo fiduciário e a LGPD.
+            O ChatGPT é um assistente textual genérico: ele não vigia seus grupos de WhatsApp, não sabe quem é preposto ou sócio na sua base, não tem integração com rotinas de escritório e, o mais grave, <strong>ele alucina prazos e inventa jurisprudência</strong>.
             <blockquote>
-              "A Themis é especializada: prazos são calculados em código determinístico, todo fato é amarrado à folha exata do processo e seus dados operam em máquina dedicada sob contrato empresarial com Zero Data Retention."
+              "A Themis é especializada: prazos são calculados em código determinístico, todo fato é amarrado à folha exata do processo e o banco de dados de atendimento opera localmente na infraestrutura da banca."
             </blockquote>
           </div>
         </div>
@@ -2156,7 +2167,7 @@ const silogismo = {
             <span class="accordion-icon">▼</span>
           </div>
           <div class="accordion-body">
-            Essa foi a maior preocupação na engenharia do Themis Jurídico OS. Por isso, a plataforma não utiliza disparadores piratas de spam:
+            Essa foi uma prioridade na engenharia do Themis Jurídico OS. Por isso, a plataforma não utiliza disparadores piratas de spam:
             <ul style="margin-top: 0.5rem; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 4px;">
               <li>Opera em linha dedicada com aquecimento prévio de 14 dias;</li>
               <li>O agente Argos trabalha em modo 100% silencioso (somente leitura);</li>
@@ -2296,9 +2307,9 @@ Teria 15 minutos nesta quinta às 10h ou às 15h para ver como isso funciona em 
         </div>
 
         <div class="cta-actions">
-          <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20Themis%20Jur%C3%ADdico%20OS%20com%20autos%20reais." target="_blank" class="btn-hero-primary" style="font-size: 1.1rem; padding: 1.1rem 2.5rem;">
+          <a href="https://wa.me/5561996993134?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20Themis%20Jur%C3%ADdico%20OS%20com%20autos%20reais." target="_blank" class="btn-hero-primary" style="font-size: 1.1rem; padding: 1.1rem 2.5rem;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-            Agendar Demonstração Executiva via WhatsApp
+            Agendar via WhatsApp (61) 99699-3134
           </a>
           <a href="mailto:contato@ecossistemalive.com.br?subject=Solicita%C3%A7%C3%A3o%20de%20Demonstra%C3%A7%C3%A3o%20-%20Themis%20Jur%C3%ADdico%20OS" class="btn-hero-secondary" style="font-size: 1.1rem; padding: 1.1rem 2.2rem;">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
@@ -2335,9 +2346,9 @@ Teria 15 minutos nesta quinta às 10h ou às 15h para ver como isso funciona em 
           <h5>Compliance & Segurança</h5>
           <ul>
             <li><a href="#seguranca">Provimento OAB 205/2021</a></li>
-            <li><a href="#seguranca">Lei 13.709/2018 (LGPD)</a></li>
-            <li><a href="#seguranca">Zero Data Retention</a></li>
             <li><a href="#seguranca">Revisão Humana Obrigatória</a></li>
+            <li><a href="#seguranca">Soberania de Borda (Edge SQLite)</a></li>
+            <li><a href="#seguranca">Chave Própria de API</a></li>
             <li><a href="#seguranca">Envelope Anti-Ban WhatsApp</a></li>
           </ul>
         </div>
@@ -2345,6 +2356,7 @@ Teria 15 minutos nesta quinta às 10h ou às 15h para ver como isso funciona em 
         <div class="footer-col">
           <h5>Atendimento Executivo</h5>
           <ul>
+            <li><a href="https://wa.me/5561996993134" target="_blank">WhatsApp: (61) 99699-3134</a></li>
             <li><a href="mailto:contato@ecossistemalive.com.br">contato@ecossistemalive.com.br</a></li>
             <li><a href="https://ecossistemalive.com.br" target="_blank">ecossistemalive.com.br</a></li>
             <li><a href="#demonstracao">Solicitar Diagnóstico</a></li>
