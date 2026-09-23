@@ -1,0 +1,2465 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THEMIS JURÍDICO OS — Sistema Operacional de IA & Governança de SLA para Escritórios</title>
+  <meta name="description" content="Apresentação executiva contínua do Themis Jurídico OS. Inteligência Artificial Híbrida, Vigília Silenciosa de Grupos de WhatsApp, SLA de Atendimento e Peticionamento com Zero Alucinação.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-darkest: #030712;
+      --bg-dark: #070d1e;
+      --bg-surface: #0c162e;
+      --bg-surface-elevated: #112042;
+      --bg-card: #0f1c3a;
+      --bg-card-hover: #162952;
+      
+      --border-subtle: #192b52;
+      --border-medium: #243c72;
+      --border-bright: #395c9e;
+      
+      --gold-primary: #d4af37;
+      --gold-light: #f5d77f;
+      --gold-dark: #997a15;
+      --gold-glow: rgba(212, 175, 55, 0.25);
+      
+      --accent-cyan: #38bdf8;
+      --accent-cyan-glow: rgba(56, 189, 248, 0.2);
+      --accent-green: #10b981;
+      --accent-green-glow: rgba(16, 185, 129, 0.25);
+      --accent-red: #ef4444;
+      --accent-red-glow: rgba(239, 68, 68, 0.25);
+      --accent-amber: #f59e0b;
+      --accent-purple: #a855f7;
+      
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --font-display: 'Cinzel', serif;
+      --font-title: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+      --radius-full: 9999px;
+      
+      --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 30px -5px var(--gold-glow);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      color-scheme: dark;
+    }
+
+    body {
+      background-color: var(--bg-darkest);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      line-height: 1.65;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Ambient Background Effects */
+    .ambient-glow {
+      position: fixed;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(140px);
+      opacity: 0.15;
+      transition: all 0.5s ease;
+    }
+    .ambient-top {
+      top: -200px;
+      left: 20%;
+      background: radial-gradient(circle, var(--gold-primary), transparent 70%);
+    }
+    .ambient-mid {
+      top: 40%;
+      right: -200px;
+      background: radial-gradient(circle, var(--accent-cyan), transparent 70%);
+    }
+    .ambient-bottom {
+      bottom: 10%;
+      left: -150px;
+      background: radial-gradient(circle, var(--accent-purple), transparent 70%);
+    }
+
+    /* Reading Progress Bar */
+    #progress-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: transparent;
+      z-index: 1001;
+    }
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold-primary), var(--accent-cyan), var(--accent-green));
+      box-shadow: 0 0 8px var(--gold-glow);
+      transition: width 0.1s ease-out;
+    }
+
+    /* Top Sticky Navigation Bar */
+    header.top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(7, 13, 30, 0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0.85rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+    header.top-nav.scrolled {
+      padding: 0.65rem 2.5rem;
+      background: rgba(3, 7, 18, 0.95);
+      border-bottom-color: var(--border-medium);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--gold-primary), #7c5a08);
+      color: #030712;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 900;
+      box-shadow: 0 0 15px var(--gold-glow);
+    }
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      color: #fff;
+    }
+    .brand-text span {
+      font-size: 0.68rem;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+    .nav-links a:hover {
+      color: var(--gold-light);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold-primary);
+      transition: width 0.2s ease;
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-nav-cta {
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+      color: #030712;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 0.55rem 1.25rem;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 12px var(--gold-glow);
+      transition: all 0.2s ease;
+      border: 1px solid var(--gold-light);
+    }
+    .btn-nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 18px rgba(212, 175, 55, 0.4);
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+    }
+
+    /* Container Standard */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      padding: 6rem 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Section Headers */
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.35rem 0.9rem;
+      border-radius: var(--radius-full);
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: var(--gold-light);
+      font-family: var(--font-title);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      line-height: 1.2;
+      color: #ffffff;
+      margin-bottom: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+    .section-title span.highlight {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .section-desc {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 820px;
+      margin-bottom: 3.5rem;
+      line-height: 1.7;
+    }
+
+    /* HERO SECTION */
+    .hero-section {
+      padding: 7rem 0 5rem 0;
+      text-align: center;
+      background: radial-gradient(circle at 50% 20%, rgba(17, 32, 66, 0.6) 0%, transparent 70%);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .hero-badge-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 1.8rem;
+      flex-wrap: wrap;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-full);
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .hero-badge.gold {
+      background: rgba(212, 175, 55, 0.12);
+      border-color: rgba(212, 175, 55, 0.4);
+      color: var(--gold-light);
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+    .hero-title-highlight {
+      display: block;
+      background: linear-gradient(135deg, #ffffff 20%, var(--gold-light) 60%, var(--gold-primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 40px rgba(212, 175, 55, 0.25);
+    }
+    .hero-subtitle {
+      font-size: 1.35rem;
+      color: var(--text-secondary);
+      max-width: 860px;
+      margin: 0 auto 2.5rem auto;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+    .hero-subtitle strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+    }
+    .btn-hero-primary {
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+      color: #030712;
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: 1.05rem;
+      padding: 1rem 2.2rem;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 24px var(--gold-glow);
+      transition: all 0.25s ease;
+      border: 1px solid var(--gold-light);
+    }
+    .btn-hero-primary:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.45);
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+    }
+    .btn-hero-secondary {
+      background: rgba(15, 28, 58, 0.8);
+      color: var(--text-primary);
+      font-family: var(--font-title);
+      font-weight: 600;
+      font-size: 1.05rem;
+      padding: 1rem 2rem;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border-medium);
+      transition: all 0.25s ease;
+    }
+    .btn-hero-secondary:hover {
+      background: var(--bg-surface-elevated);
+      border-color: var(--border-bright);
+      color: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    /* Metrics Ribbon */
+    .metrics-ribbon {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+      background: rgba(12, 22, 46, 0.7);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.5rem;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-card);
+    }
+    .metric-item {
+      text-align: center;
+      position: relative;
+    }
+    .metric-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: -0.75rem;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background: var(--border-subtle);
+    }
+    .metric-val {
+      font-family: var(--font-title);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      line-height: 1.1;
+      margin-bottom: 0.35rem;
+    }
+    .metric-val.green { color: var(--accent-green); }
+    .metric-val.cyan { color: var(--accent-cyan); }
+    .metric-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    /* SECTION 1: OS 4 PONTOS CEGOS */
+    .crisis-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    .crisis-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 2.2rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .crisis-card:hover {
+      border-color: var(--accent-red);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(239, 68, 68, 0.15);
+    }
+    .crisis-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent-red);
+      opacity: 0.7;
+    }
+    .crisis-icon {
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+      display: inline-block;
+    }
+    .crisis-card h3 {
+      font-family: var(--font-title);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.85rem;
+    }
+    .crisis-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+    .crisis-impact {
+      background: rgba(239, 68, 68, 0.1);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 1rem;
+      font-size: 0.85rem;
+      color: #fca5a5;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* SECTION 2: ARQUITETURA DE 3 CAMADAS */
+    .architecture-wrapper {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      position: relative;
+    }
+    .arch-flow-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .arch-column {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .arch-column:hover {
+      border-color: var(--gold-primary);
+      box-shadow: var(--shadow-glow);
+    }
+    .arch-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.25rem 0.7rem;
+      border-radius: var(--radius-full);
+      width: fit-content;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .arch-tag.edge { background: rgba(56, 189, 248, 0.15); color: var(--accent-cyan); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .arch-tag.squad { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); border: 1px solid rgba(168, 85, 247, 0.3); }
+    .arch-tag.cloud { background: rgba(212, 175, 55, 0.15); color: var(--gold-light); border: 1px solid rgba(212, 175, 55, 0.3); }
+
+    .arch-column h3 {
+      font-family: var(--font-title);
+      font-size: 1.3rem;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+    .arch-column p.arch-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+    .arch-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-top: auto;
+    }
+    .arch-items li {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .arch-items li svg {
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    /* Terminal Diagram */
+    .terminal-box {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      color: #94a3b8;
+      overflow-x: auto;
+      line-height: 1.6;
+    }
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 0.8rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #1e293b;
+      font-size: 0.78rem;
+      color: #64748b;
+    }
+    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .terminal-dot.r { background: #ef4444; }
+    .terminal-dot.y { background: #eab308; }
+    .terminal-dot.g { background: #22c55e; }
+
+    /* SECTION 3: OS 4 MÓDULOS INTEGRADOS */
+    .module-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      margin-bottom: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+    .module-card:hover {
+      border-color: var(--gold-primary);
+      box-shadow: var(--shadow-card);
+    }
+    .module-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.8rem;
+    }
+    .module-content h3 {
+      font-family: var(--font-title);
+      font-size: 1.8rem;
+      color: #fff;
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+    .module-content p {
+      color: var(--text-secondary);
+      font-size: 0.98rem;
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+    .module-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .module-features li {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .module-features li strong {
+      color: #ffffff;
+    }
+
+    /* Urgency Scale Grid (Argos) */
+    .urgency-scale {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      background: var(--bg-surface);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+    .urgency-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 0.85rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      font-size: 0.82rem;
+      border-left: 3px solid transparent;
+    }
+    .urgency-row.n0 { border-left-color: #64748b; }
+    .urgency-row.n1 { border-left-color: #38bdf8; }
+    .urgency-row.n2 { border-left-color: #10b981; }
+    .urgency-row.n3 { border-left-color: #f59e0b; }
+    .urgency-row.n4 { border-left-color: #f97316; }
+    .urgency-row.n5 { border-left-color: #ef4444; }
+    .urgency-row.nx { border-left-color: #dc2626; background: rgba(220, 38, 38, 0.15); font-weight: 700; color: #fca5a5; }
+
+    /* Routines Timecards (Mentor) */
+    .routines-wrapper {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .routine-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1.2rem;
+      text-align: center;
+    }
+    .routine-time {
+      font-family: var(--font-mono);
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      margin-bottom: 0.3rem;
+    }
+    .routine-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+    .routine-desc {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* SECTION 4: TABELA COMPARATIVA IMBATÍVEL */
+    .table-container {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    .comp-table th {
+      padding: 1.2rem 1.5rem;
+      font-family: var(--font-title);
+      font-size: 0.95rem;
+      font-weight: 700;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-medium);
+    }
+    .comp-table th.highlight-th {
+      background: rgba(212, 175, 55, 0.15);
+      color: var(--gold-light);
+      border-left: 2px solid var(--gold-primary);
+      border-right: 2px solid var(--gold-primary);
+    }
+    .comp-table td {
+      padding: 1.2rem 1.5rem;
+      font-size: 0.92rem;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: middle;
+    }
+    .comp-table tr:hover td {
+      background: rgba(17, 32, 66, 0.4);
+    }
+    .comp-table td.highlight-td {
+      background: rgba(212, 175, 55, 0.05);
+      border-left: 2px solid var(--gold-primary);
+      border-right: 2px solid var(--gold-primary);
+      font-weight: 600;
+      color: #fff;
+    }
+    .comp-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .comp-badge.bad { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+    .comp-badge.warn { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .comp-badge.good { background: rgba(16, 185, 129, 0.18); color: #34d399; }
+
+    /* SECTION 5: SEGURANÇA E CONFORMIDADE OAB */
+    .compliance-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .compliance-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+    .compliance-card:hover {
+      border-color: var(--accent-green);
+      transform: translateY(-4px);
+    }
+    .compliance-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--accent-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1.2rem;
+    }
+    .compliance-card h3 {
+      font-family: var(--font-title);
+      font-size: 1.15rem;
+      color: #fff;
+      margin-bottom: 0.65rem;
+      font-weight: 700;
+    }
+    .compliance-card p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* SECTION 6: PLANOS E PRECIFICAÇÃO */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      align-items: stretch;
+      margin-bottom: 3rem;
+    }
+    .pricing-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-card);
+    }
+    .pricing-card.featured {
+      background: linear-gradient(180deg, #112349 0%, var(--bg-card) 100%);
+      border: 2px solid var(--gold-primary);
+      box-shadow: 0 10px 40px -10px var(--gold-glow);
+    }
+    .pricing-featured-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+      color: #030712;
+      font-family: var(--font-title);
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.35rem 1.2rem;
+      border-radius: var(--radius-full);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px var(--gold-glow);
+    }
+    .plan-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .plan-target {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .plan-price-box {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .plan-price {
+      font-family: var(--font-title);
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+    .plan-price small {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .plan-setup {
+      font-size: 0.85rem;
+      color: var(--gold-light);
+      margin-top: 0.4rem;
+      font-weight: 600;
+    }
+    .plan-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 2rem;
+      flex-grow: 1;
+    }
+    .plan-features li {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .plan-btn {
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: var(--radius-full);
+      font-family: var(--font-title);
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .plan-btn.primary {
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+      color: #030712;
+      border: 1px solid var(--gold-light);
+      box-shadow: 0 4px 15px var(--gold-glow);
+    }
+    .plan-btn.primary:hover {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+      transform: translateY(-2px);
+    }
+    .plan-btn.secondary {
+      background: var(--bg-surface);
+      color: #fff;
+      border: 1px solid var(--border-medium);
+    }
+    .plan-btn.secondary:hover {
+      background: var(--bg-surface-elevated);
+      border-color: var(--border-bright);
+    }
+
+    /* Radically Transparent AI Note */
+    .ai-transparency-note {
+      background: rgba(12, 22, 46, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .ai-note-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    .ai-note-text p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .ai-note-text strong {
+      color: var(--text-primary);
+    }
+
+    /* SECTION 7: CALCULADORA INTERATIVA DE ROI */
+    .roi-section-wrapper {
+      background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-darkest) 100%);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-lg);
+      padding: 3.5rem;
+    }
+    .roi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .calc-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .calc-control-group label {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-title);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.8rem;
+    }
+    .calc-control-group label span.val-badge {
+      color: var(--gold-light);
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
+    .range-slider {
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      background: #1e293b;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    .range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--gold-primary);
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--gold-glow);
+      border: 2px solid #ffffff;
+    }
+
+    .calc-results-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-md);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-card);
+    }
+    .calc-result-header {
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-green);
+      margin-bottom: 0.5rem;
+    }
+    .calc-big-saving {
+      font-family: var(--font-title);
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--accent-green);
+      line-height: 1;
+      margin-bottom: 0.8rem;
+    }
+    .calc-saving-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .calc-stats-subgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .calc-stat-sub h4 {
+      font-family: var(--font-title);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .calc-stat-sub p {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+
+    /* SECTION 8: TRATAMENTO DE OBJEÇÕES (ACCORDION) */
+    .accordion-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .accordion-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    .accordion-item.active {
+      border-color: var(--gold-primary);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .accordion-header {
+      padding: 1.4rem 1.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+    .accordion-header h4 {
+      font-family: var(--font-title);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .accordion-header h4 span.num {
+      color: var(--gold-light);
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+    }
+    .accordion-icon {
+      font-size: 1.2rem;
+      color: var(--gold-light);
+      transition: transform 0.3s ease;
+    }
+    .accordion-item.active .accordion-icon {
+      transform: rotate(180deg);
+    }
+    .accordion-body {
+      padding: 0 1.8rem 1.5rem 1.8rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      display: none;
+    }
+    .accordion-item.active .accordion-body {
+      display: block;
+    }
+    .accordion-body blockquote {
+      border-left: 3px solid var(--gold-primary);
+      padding-left: 1rem;
+      margin-top: 0.5rem;
+      font-style: italic;
+      color: #e2e8f0;
+      background: rgba(212, 175, 55, 0.05);
+      padding: 1rem;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+
+    /* Outbound Pitch Script Box */
+    .pitch-box {
+      margin-top: 3rem;
+      background: var(--bg-surface);
+      border: 1px dashed var(--border-medium);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      position: relative;
+    }
+    .pitch-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .pitch-title {
+      font-family: var(--font-title);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .copy-btn {
+      background: var(--bg-surface-elevated);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.9rem;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover {
+      background: var(--gold-primary);
+      color: #030712;
+      border-color: var(--gold-primary);
+    }
+    .pitch-text {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      background: var(--bg-dark);
+      padding: 1.2rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* SECTION 9: CRONOGRAMA DE 14 DIAS */
+    .timeline-container {
+      position: relative;
+      margin: 3rem 0;
+    }
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold-primary), var(--accent-cyan), var(--accent-green));
+      transform: translateY(-50%);
+      z-index: 0;
+    }
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-step {
+      background: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      border-radius: var(--radius-md);
+      padding: 1.8rem 1.4rem;
+      text-align: center;
+      position: relative;
+      box-shadow: var(--shadow-card);
+    }
+    .timeline-step-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #030712;
+      background: var(--gold-light);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+    }
+    .timeline-step h4 {
+      font-family: var(--font-title);
+      font-size: 1.05rem;
+      color: #fff;
+      margin-bottom: 0.6rem;
+      font-weight: 700;
+    }
+    .timeline-step p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* SECTION 10: DEMONSTRAÇÃO FATAL & CTA FINAL */
+    .cta-card {
+      background: radial-gradient(circle at 50% 0%, #162a56 0%, #0a1329 100%);
+      border: 2px solid var(--gold-primary);
+      border-radius: var(--radius-lg);
+      padding: 4.5rem 3rem;
+      text-align: center;
+      box-shadow: 0 20px 60px -15px var(--gold-glow);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      color: #fff;
+      font-weight: 800;
+      margin-bottom: 1.2rem;
+      line-height: 1.2;
+    }
+    .cta-desc {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 780px;
+      margin: 0 auto 2.5rem auto;
+      line-height: 1.6;
+    }
+    .cta-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto 3rem auto;
+      text-align: left;
+    }
+    .cta-step-item {
+      background: rgba(11, 22, 46, 0.7);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+    }
+    .cta-step-num {
+      font-family: var(--font-mono);
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--gold-light);
+      margin-bottom: 0.4rem;
+    }
+    .cta-step-text {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+    }
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer.page-footer {
+      background: #020612;
+      border-top: 1px solid var(--border-subtle);
+      padding: 4rem 0 2.5rem 0;
+      font-size: 0.86rem;
+      color: var(--text-dim);
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand h4 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: #fff;
+      margin-bottom: 0.6rem;
+    }
+    .footer-brand p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 380px;
+    }
+    .footer-col h5 {
+      font-family: var(--font-title);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .footer-col a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover {
+      color: var(--gold-light);
+    }
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid #0f1c3a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-title { font-size: 3rem; }
+      .metrics-ribbon { grid-template-columns: repeat(2, 1fr); }
+      .metrics-ribbon .metric-item:nth-child(5) { grid-column: span 2; }
+      .arch-flow-grid { grid-template-columns: 1fr; }
+      .module-card { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .roi-grid { grid-template-columns: 1fr; }
+      .compliance-grid { grid-template-columns: repeat(2, 1fr); }
+      .timeline-container::before { display: none; }
+      .timeline-grid { grid-template-columns: 1fr 1fr; }
+      .cta-steps-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      header.top-nav { padding: 0.8rem 1.2rem; }
+      .nav-links { display: none; }
+      .section-title { font-size: 2rem; }
+      .hero-title { font-size: 2.3rem; }
+      .hero-subtitle { font-size: 1.05rem; }
+      .crisis-grid { grid-template-columns: 1fr; }
+      .compliance-grid { grid-template-columns: 1fr; }
+      .timeline-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Glow Effects -->
+  <div class="ambient-glow ambient-top"></div>
+  <div class="ambient-glow ambient-mid"></div>
+  <div class="ambient-glow ambient-bottom"></div>
+
+  <!-- Reading Progress Bar -->
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+  </div>
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="top-nav" id="topNav">
+    <a href="#" class="brand-group">
+      <div class="brand-icon">T</div>
+      <div class="brand-text">
+        <h1>THEMIS JURÍDICO OS</h1>
+        <span>Ecossistema Live · Versão 2.0</span>
+      </div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#problema">O Ponto Cego</a></li>
+      <li><a href="#arquitetura">Arquitetura</a></li>
+      <li><a href="#modulos">4 Módulos</a></li>
+      <li><a href="#diferenciais">Comparativo</a></li>
+      <li><a href="#seguranca">Compliance OAB</a></li>
+      <li><a href="#planos">Planos & Preços</a></li>
+      <li><a href="#roi">Calculadora ROI</a></li>
+      <li><a href="#objecoes">Objeções</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a href="#demonstracao" class="btn-nav-cta">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        Demonstração 20 min
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-badge-container">
+        <span class="hero-badge gold">PRODUTO OFICIAL · ECOSSISTEMA LIVE</span>
+        <span class="hero-badge">PRONTO PARA ESCALA NACIONAL</span>
+        <span class="hero-badge gold">PROVIMENTO OAB 205/2021 COMPLIANT</span>
+      </div>
+
+      <h1 class="hero-title">
+        THEMIS JURÍDICO OS
+        <span class="hero-title-highlight">O Fim do Caos Operacional na Advocacia</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        O primeiro <strong>Sistema Operacional de Inteligência Híbrida</strong> que une a <strong>vigília silenciosa de grupos de WhatsApp</strong>, governança de SLA e um <strong>motor de peticionamento com zero alucinação</strong> — garantindo soberania total dos dados da sua banca.
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="#demonstracao" class="btn-hero-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          Agendar Teste de Fogo com Autos Reais
+        </a>
+        <a href="#arquitetura" class="btn-hero-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          Ver Arquitetura de Borda Soberana
+        </a>
+      </div>
+
+      <!-- Metrics Ribbon -->
+      <div class="metrics-ribbon">
+        <div class="metric-item">
+          <div class="metric-val">80.000+</div>
+          <div class="metric-label">Sociedades de Advogados no Brasil</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-val green">&lt; 60s</div>
+          <div class="metric-label">Alerta de Intimações e DTEs Críticos</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-val cyan">&lt; 2h</div>
+          <div class="metric-label">SLA de Acolhimento no WhatsApp</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-val">100%</div>
+          <div class="metric-label">Prazos Calculados em Código Exato</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-val green">38,5 : 1</div>
+          <div class="metric-label">Retorno LTV/CAC com Payback no Setup</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 1: O PONTO CEGO DAS BANCAS -->
+  <section id="problema">
+    <div class="container">
+      <div class="section-eyebrow">Diagnóstico do Setor Jurídico</div>
+      <h2 class="section-title">O Ponto Cego que Drena a Margem dos <span class="highlight">Sócios de Escritórios</span></h2>
+      <p class="section-desc">
+        Mais de 1,4 milhão de advogados enfrentam diariamente quatro crises invisíveis. Ferramentas genéricas de IA como ChatGPT ou bots de mensagem tradicionais apenas agravam o problema.
+      </p>
+
+      <div class="crisis-grid">
+        <!-- Crise 1 -->
+        <div class="crisis-card">
+          <div class="crisis-icon">📱</div>
+          <h3>1. O Caos do WhatsApp & Perda de Demandas</h3>
+          <p>
+            Clientes pulverizados em dezenas de grupos. Sócios respondem de madrugada para conter a ansiedade do cliente gerando falsa sensação de controle; pedidos urgentes ficam soterrados no meio de conversas sociais, sem triagem e sem controle real de tempo de resposta.
+          </p>
+          <div class="crisis-impact">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            Impacto: Fuga de clientes valiosos por sensação de descaso e sobrecarga brutal dos sócios.
+          </div>
+        </div>
+
+        <!-- Crise 2 -->
+        <div class="crisis-card">
+          <div class="crisis-icon">🚨</div>
+          <h3>2. Risco Fatal de Perda de Prazos em DTEs</h3>
+          <p>
+            Notificações de Domicílio Tributário Eletrônico (DTE), DJEN ou bloqueios judiciais são enviadas por clientes em grupos sem qualquer aviso formal. Se ninguém abrir a mensagem em minutos, o prazo preclui e a responsabilidade civil recai sobre a banca.
+          </p>
+          <div class="crisis-impact">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            Impacto: Prejuízos financeiros incalculáveis e processos ético-disciplinares na OAB.
+          </div>
+        </div>
+
+        <!-- Crise 3 -->
+        <div class="crisis-card">
+          <div class="crisis-icon">⚠️</div>
+          <h3>3. O Pânico das Alucinações de IAs Genéricas</h3>
+          <p>
+            ChatGPT e robôs de texto comuns inventam julgados, criam teses inexistentes e citam artigos de leis já revogados. O advogado sênior não confia no resultado e gasta mais tempo corrigindo a redação do que se a tivesse feito do zero.
+          </p>
+          <div class="crisis-impact">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            Impacto: Perda de credibilidade com magistrados e risco iminente de litigância de má-fé.
+          </div>
+        </div>
+
+        <!-- Crise 4 -->
+        <div class="crisis-card">
+          <div class="crisis-icon">🔒</div>
+          <h3>4. Violação de Segredo de Justiça e LGPD</h3>
+          <p>
+            Advogados e estagiários colando petições inteiras com dados confidenciais de clientes e segredo de justiça em ferramentas públicas na nuvem. Os dados são usados para treinar modelos globais de terceiros, infringindo frontalmente a LGPD e o sigilo fiduciário.
+          </p>
+          <div class="crisis-impact">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            Impacto: Multas da ANPD e quebra irreparável da reputação de confidencialidade da banca.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: ARQUITETURA EM 3 CAMADAS -->
+  <section id="arquitetura" style="background: rgba(7, 13, 30, 0.5);">
+    <div class="container">
+      <div class="section-eyebrow">Engenharia Híbrida & Borda Soberana</div>
+      <h2 class="section-title">Topologia de <span class="highlight">Borda Soberana + Nuvem Serviceless</span></h2>
+      <p class="section-desc">
+        A Themis Jurídico OS não é um software web vulnerável. Ela opera em uma infraestrutura híbrida onde o dado sensível do cliente nunca sai do controle físico do escritório.
+      </p>
+
+      <div class="architecture-wrapper">
+        <div class="arch-flow-grid">
+          <!-- Coluna 1: Borda -->
+          <div class="arch-column">
+            <span class="arch-tag edge">Camada 1: Borda Soberana (Edge)</span>
+            <h3>Themis Edge Station</h3>
+            <p class="arch-desc">Instalada fisicamente no mini-PC dedicado ou VM do escritório. Opera 24/7 com zero latência.</p>
+            <ul class="arch-items">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Playwright Persistent Engine:</strong> Leitura segura de grupos de WhatsApp sem APIs não-oficiais invasivas.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>SQLite Local (`themis.db`):</strong> Demanda, logs de SLA e auditorias persistidos na infraestrutura do cliente.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Agendador de Rotinas:</strong> Execução autônoma nos marcos das 07h, 12h e 18h via Windows Task Scheduler.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Coluna 2: Squad -->
+          <div class="arch-column">
+            <span class="arch-tag squad">Camada 2: Squad de Agentes</span>
+            <h3>Agentes Autônomos</h3>
+            <p class="arch-desc">Três agentes especializados operando sob supervisão contínua e regras restritas.</p>
+            <ul class="arch-items">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Argos (Vigília Silenciosa):</strong> Monitora grupos, classifica urgência N0-N5 e dispara alertas de DTE.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Temis (Concierge Digital):</strong> Acolhe clientes em &lt; 2h com envelope anti-bloqueio estocástico.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Mentor Jurídico:</strong> Apoio técnico à equipe, tradução de despachos e onboarding de estagiários.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Coluna 3: Nuvem -->
+          <div class="arch-column">
+            <span class="arch-tag cloud">Camada 3: Nuvem Soberana</span>
+            <h3>Themis Core SaaS</h3>
+            <p class="arch-desc">Processamento analítico avançado em datacenter sul-americano com Zero Data Retention.</p>
+            <ul class="arch-items">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Prazos em Código Determinístico:</strong> Contagem matemática pura de dias úteis e CPC/CLT sem alucinação de LLM.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Plano Silogístico Estruturado:</strong> Fato ➔ Norma ➔ Subsunção ➔ Prova amarrada folha a folha no PDF.</span>
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>Revisão Adversarial:</strong> Simulação pré-protocolo no papel do juiz ou da parte contrária.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Terminal Code Snippet Demonstration -->
+        <div class="terminal-box">
+          <div class="terminal-header">
+            <div class="terminal-dot r"></div>
+            <div class="terminal-dot y"></div>
+            <div class="terminal-dot g"></div>
+            <span>THEMIS EDGE CORE · FLUXO SEGURO DE DADOS COM CRIPTOGRAFIA DE PONTA A PONTA</span>
+          </div>
+          <pre><code>// 1. EXTRAÇÃO DETERMINÍSTICA DO PRAZO (SEM ALUCINAÇÃO DE LLM)
+const { calcularPrazoFatal } = require('./engine/prazos.js');
+const intimacao = { tribunal: 'TJSP', publicacao: '2026-09-21', dispositivo: 'Art. 1.003 § 5º CPC', diasUteis: 15 };
+const prazoExato = calcularPrazoFatal(intimacao); 
+// Resultado Exato: { d_menos_2: '2026-10-09', d_menos_1: '2026-10-12', fatal: '2026-10-13 23:59:59' }
+
+// 2. ANCORAGEM OBRIGATÓRIA DE FATOS NO PDF
+const silogismo = {
+  fatoControvertido: "Ausência de notificação prévia do débito fiscal",
+  provaDocumental: "fls. 142 a 145 do arquivo autos_execucao_fiscal.pdf",
+  teseDefesa: "Nulidade da CDA por cerceamento de defesa (Súmula 392 STJ)",
+  statusDado: "COMPROVADO_NOS_AUTOS" // O que não estiver comprovado vira [DADO FALTANTE]
+};</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: OS 4 MÓDULOS INTEGRADOS -->
+  <section id="modulos">
+    <div class="container">
+      <div class="section-eyebrow">Suíte Completa de Produtividade</div>
+      <h2 class="section-title">Os Quatro Módulos da <span class="highlight">Themis Jurídico OS</span></h2>
+      <p class="section-desc">
+        Projetados para cobrir 100% da rotina da banca: desde a primeira mensagem que o cliente envia no WhatsApp até a entrega de uma apelação blindada no tribunal.
+      </p>
+
+      <!-- MÓDULO 1: ARGOS -->
+      <div class="module-card">
+        <div class="module-content">
+          <span class="module-badge">Módulo 1 · Vigília & Triagem de SLA</span>
+          <h3>Agente Argos: O Vigia Silencioso dos Grupos</h3>
+          <p>
+            Monitora centenas de grupos de WhatsApp simultaneamente sem emitir uma única palavra indesejada. O Argos opera sob uma premissa fundamental: <strong>"Mensagem é o que se coleta. Demanda é o que se gerencia."</strong>
+          </p>
+          <ul class="module-features">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Detecção de Promessas Vazias:</strong> Se o advogado responde <em>"vou ver isso"</em>, o Argos sabe que a demanda <strong>não foi resolvida</strong>. O relógio de SLA continua rodando.</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Triagem de Legitimidade:</strong> Se um terceiro pede informações confidenciais da ação do sócio, a demanda é isolada, acolhida com discrição e escalada em sigilo para a diretoria.</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Régua NX de DTE (Protocolo Imediato):</strong> Intimações fiscais e notificações de bloqueio disparam alerta vermelho e só encerram sob <strong>dupla chave</strong> (ciência do advogado + protocolo da controladoria).</span>
+            </li>
+          </ul>
+        </div>
+        <div class="module-visual">
+          <div class="urgency-scale">
+            <div style="font-family: var(--font-title); font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; display: flex; justify-content: space-between;">
+              <span>RÉGUA DE URGÊNCIA SEMÂNTICA</span>
+              <span style="color: var(--gold-light);">SLA TEMPO REAL</span>
+            </div>
+            <div class="urgency-row n0">
+              <span><strong>N0:</strong> Ruído / Cumprimentos sociais</span>
+              <span>Ignorado</span>
+            </div>
+            <div class="urgency-row n1">
+              <span><strong>N1:</strong> Dúvida simples / Andamento</span>
+              <span>SLA &lt; 24h</span>
+            </div>
+            <div class="urgency-row n2">
+              <span><strong>N2:</strong> Demanda operacional padrão</span>
+              <span>SLA &lt; 48h</span>
+            </div>
+            <div class="urgency-row n3">
+              <span><strong>N3:</strong> Risco financeiro / Contrato crítico</span>
+              <span>SLA &lt; 12h</span>
+            </div>
+            <div class="urgency-row n4">
+              <span><strong>N4:</strong> Penhora / Bloqueio judicial SISBAJUD</span>
+              <span>SLA &lt; 2h</span>
+            </div>
+            <div class="urgency-row n5">
+              <span><strong>N5:</strong> Liminar em risco / Prisão / Busca</span>
+              <span>SLA &lt; 30min</span>
+            </div>
+            <div class="urgency-row nx">
+              <span>🚨 <strong>NX:</strong> DTE / Domicílio Judicial Eletrônico</span>
+              <span>ALERTA EM 60s (Dupla Chave)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MÓDULO 2: TEMIS -->
+      <div class="module-card">
+        <div class="module-visual">
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 2rem;">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-subtle);">
+              <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--accent-green); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 800;">T</div>
+              <div>
+                <h4 style="font-size: 0.95rem; color: #fff;">Concierge Temis</h4>
+                <span style="font-size: 0.75rem; color: #34d399;">● Online · Envelope Anti-Ban Ativo</span>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 1rem; font-size: 0.85rem;">
+              <div style="background: #1e293b; padding: 0.85rem 1.1rem; border-radius: 12px 12px 12px 2px; color: #e2e8f0; max-width: 85%;">
+                "Olá, Dr. Marcelo. Acusamos o recebimento dos documentos fiscais relativos ao processo 0041289-44. A controladoria técnica já assumiu o chamado (#TK-842) e você receberá a confirmação do protocolo até as 17h."
+              </div>
+              <div style="align-self: flex-end; background: rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3); padding: 0.5rem 0.9rem; border-radius: var(--radius-sm); font-size: 0.75rem; color: var(--gold-light);">
+                ⏱️ Enviado em 42s · Delay Humano Aplicado · Zero Risco Ban
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="module-content">
+          <span class="module-badge">Módulo 2 · Atendimento & Acolhimento</span>
+          <h3>Agente Temis: Concierge Digital com Envelope Anti-Bloqueio</h3>
+          <p>
+            Elimina a ansiedade que faz o cliente telefonar para os sócios. O acolhimento cordial acontece em menos de 2 horas no próprio WhatsApp, com garantia absoluta de preservação do número corporativo do escritório.
+          </p>
+          <ul class="module-features">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Fila Única com Envelope Anti-Ban:</strong> Nenhuma mensagem é disparada em lote. Delays estocásticos aleatórios (30s a 90s) e simulação de presença humana de digitação.</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Aquecimento Gradual (14 Dias):</strong> Protocolo seguro de maturação do chip para linhas novas, com teto de 100 interações/dia por linha.</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Portão de Aprovação Humana:</strong> Respostas substantivas são salvas como rascunho na esteira para validação pelo advogado antes do envio.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- MÓDULO 3: THEMIS CORE SAAS -->
+      <div class="module-card">
+        <div class="module-content">
+          <span class="module-badge">Módulo 3 · Peticionamento Estratégico</span>
+          <h3>Themis Core SaaS: O Motor Anti-Alucinação</h3>
+          <p>
+            Peticionamento profundo com ancoragem folha a folha e contagem matemática de prazos. Não é um gerador de textos genéricos: é uma esteira de engenharia jurídica com 3 modos de operação.
+          </p>
+          <ul class="module-features">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Modo 1 (Análise Processual Profunda):</strong> Lê autos em PDF de 200 a 1.000+ páginas, extrai linha do tempo fática, identifica prescrições e pressupostos processuais.</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Modo 2 (Plano Silogístico Estruturado):</strong> Primeiro submete o silogismo lógico (Fato ➔ Norma ➔ Subsunção ➔ Pedido) para o advogado aprovar; depois minuta com o estilo da banca.</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Marcador Estrito `[DADO FALTANTE]`:</strong> O que não estiver comprovado nos autos nunca é inventado. A IA indica expressamente o documento que a parte precisa juntar.</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Modo 3 (Revisão Adversarial):</strong> Simula o juiz ou a parte contrária antes de protocolar, emitindo parecer de aptidão e apontando teses vulneráveis.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="module-visual">
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-medium); border-radius: var(--radius-md); padding: 1.8rem; font-size: 0.85rem;">
+            <div style="color: var(--gold-light); font-family: var(--font-title); font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              PARECER DE REVISÃO ADVERSARIAL (PRÉ-PROTOCOLO)
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.8rem; color: var(--text-secondary);">
+              <div style="background: rgba(16, 185, 129, 0.1); border-left: 3px solid var(--accent-green); padding: 0.6rem 0.9rem; border-radius: 4px;">
+                <span style="color: #34d399; font-weight: 700;">✓ Tempestividade:</span> Prazo fatal em 13/10/2026. Peça elaborada em D-4. Veredito: TEMPESTIVA.
+              </div>
+              <div style="background: rgba(245, 158, 11, 0.1); border-left: 3px solid var(--accent-amber); padding: 0.6rem 0.9rem; border-radius: 4px;">
+                <span style="color: #fbbf24; font-weight: 700;">⚠ Alerta Adversarial:</span> A preliminar de ilegitimidade passiva conflita com o argumento de mérito do item 3.2. Risco de preclusão lógica.
+              </div>
+              <div style="background: rgba(56, 189, 248, 0.1); border-left: 3px solid var(--accent-cyan); padding: 0.6rem 0.9rem; border-radius: 4px;">
+                <span style="color: #38bdf8; font-weight: 700;">ℹ Rastreabilidade:</span> 14 de 14 fatos ancorados folha a folha no PDF originário (fls. 28, 44, 91, 142).
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MÓDULO 4: MENTOR JURÍDICO -->
+      <div class="module-card">
+        <div class="module-visual">
+          <div class="routines-wrapper">
+            <div class="routine-box">
+              <div class="routine-time">07h00</div>
+              <div class="routine-title">Briefing Matinal</div>
+              <div class="routine-desc">Varredura das mensagens da madrugada, urgências críticas e pauta fatal do dia direto no celular dos sócios.</div>
+            </div>
+            <div class="routine-box">
+              <div class="routine-time">12h00</div>
+              <div class="routine-title">Auditoria SLA</div>
+              <div class="routine-desc">Monitoramento preventivo de chamados sem acolhimento &gt; 1h30 e peças fatais que vencem hoje.</div>
+            </div>
+            <div class="routine-box">
+              <div class="routine-time">18h00</div>
+              <div class="routine-title">Fechamento Diário</div>
+              <div class="routine-desc">Auditoria adversarial de peças prontas, balanço de produtividade e atualização da controladoria.</div>
+            </div>
+          </div>
+        </div>
+        <div class="module-content">
+          <span class="module-badge">Módulo 4 · Apoio Interno & Controladoria</span>
+          <h3>Mentor Jurídico & As Três Rotinas Diárias</h3>
+          <p>
+            Um copiloto técnico para os advogados da banca. O Mentor traduz despachos complexos, orienta juniores e mantém a disciplina operacional através de três gatilhos diários automáticos.
+          </p>
+          <ul class="module-features">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Aceleração de Novos Advogados:</strong> Explica teses e linhas de defesa consolidadas do escritório, reduzindo drasticamente o tempo de treinamento.</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Tradução Amigável de Andamentos:</strong> Transforma despachos judiciais herméticos em notas claras para enviar ao cliente ou alimentar o CRM.</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span><strong>Painel Gerencial de Desempenho:</strong> Métricas objetivas de quantas peças foram minutadas, revisadas e o tempo médio de resolução de chamados.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: DIFERENCIAIS COMPETITIVOS IMBATÍVEIS -->
+  <section id="diferenciais" style="background: rgba(7, 13, 30, 0.5);">
+    <div class="container">
+      <div class="section-eyebrow">Análise Comparativa</div>
+      <h2 class="section-title">Por que o Themis Jurídico OS é <span class="highlight">Imbatível</span></h2>
+      <p class="section-desc">
+        Veja por que ferramentas genéricas de texto e legaltechs legadas não conseguem entregar o que a arquitetura híbrida da Themis realiza todos os dias.
+      </p>
+
+      <div class="table-container">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th style="width: 25%;">Critério de Avaliação</th>
+              <th style="width: 23%;">IAs Genéricas (ChatGPT / Copilot)</th>
+              <th style="width: 25%;">Legaltechs Tradicionais (SaaS Comum)</th>
+              <th class="highlight-th" style="width: 27%;">THEMIS JURÍDICO OS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Vigília de WhatsApp</strong></td>
+              <td><span class="comp-badge bad">Inexistente</span><br><small style="color: var(--text-dim);">Não se conecta a grupos</small></td>
+              <td><span class="comp-badge warn">Helpdesk Limitado</span><br><small style="color: var(--text-dim);">Centralizador passivo de tickets</small></td>
+              <td class="highlight-td"><span class="comp-badge good">Vigília Ativa 24/7</span><br>Monitora dezenas de grupos simultâneos com SLA semântico</td>
+            </tr>
+            <tr>
+              <td><strong>Cálculo de Prazos</strong></td>
+              <td><span class="comp-badge bad">Alucinação Crítica</span><br><small style="color: var(--text-dim);">Inventa dias e erra feriados</small></td>
+              <td><span class="comp-badge warn">Cadastro Manual</span><br><small style="color: var(--text-dim);">Depende de digitação humana</small></td>
+              <td class="highlight-td"><span class="comp-badge good">Código Determinístico</span><br>Algoritmo matemático exato (dias úteis, recesso, CPC/CLT)</td>
+            </tr>
+            <tr>
+              <td><strong>Anti-Alucinação em Peças</strong></td>
+              <td><span class="comp-badge bad">Inventa Julgados</span><br><small style="color: var(--text-dim);">Cita leis revogadas e fatos falsos</small></td>
+              <td><span class="comp-badge warn">Modelos Estáticos</span><br><small style="color: var(--text-dim);">Templates rígidos de copiar e colar</small></td>
+              <td class="highlight-td"><span class="comp-badge good">Silogismo + Folha a Folha</span><br>Ancoragem na página exata do PDF e tag <code>[DADO FALTANTE]</code></td>
+            </tr>
+            <tr>
+              <td><strong>Soberania & Sigilo (LGPD)</strong></td>
+              <td><span class="comp-badge bad">Risco Elevado</span><br><small style="color: var(--text-dim);">Dados usados para treinar IAs</small></td>
+              <td><span class="comp-badge warn">Nuvem Compartilhada</span><br><small style="color: var(--text-dim);">Multi-tenant sem isolamento local</small></td>
+              <td class="highlight-td"><span class="comp-badge good">Edge Dedicado + Zero Retention</span><br>Hardware local no escritório + contrato sem retenção de dados</td>
+            </tr>
+            <tr>
+              <td><strong>Auditoria Pré-Protocolo</strong></td>
+              <td><span class="comp-badge bad">Nenhuma</span></td>
+              <td><span class="comp-badge bad">Nenhuma</span></td>
+              <td class="highlight-td"><span class="comp-badge good">Revisão Adversarial</span><br>Simula o juiz ou parte contrária antes do protocolo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: SEGURANÇA, LGPD & CONFORMIDADE OAB -->
+  <section id="seguranca">
+    <div class="container">
+      <div class="section-eyebrow">Blindagem Regulatória & Ética</div>
+      <h2 class="section-title">Em Total Conformidade com o <span class="highlight">Provimento OAB 205/2021 & LGPD</span></h2>
+      <p class="section-desc">
+        Desenvolvido para atender às exigências de compliance de departamentos jurídicos de bancos, seguradoras e multinacionais assessoradas pelo seu escritório.
+      </p>
+
+      <div class="compliance-grid">
+        <!-- Card 1 -->
+        <div class="compliance-card">
+          <div class="compliance-icon">⚖️</div>
+          <h3>Provimento OAB 205/2021</h3>
+          <p>
+            O sistema implementa a salvaguarda de <strong>Revisão Humana Obrigatória</strong>. A máquina gera exclusivamente minutas. A decisão técnica, o julgamento e o protocolo com token (A1/A3) pertencem privativamente ao advogado.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="compliance-card">
+          <div class="compliance-icon">🛡️</div>
+          <h3>Zero Data Retention</h3>
+          <p>
+            Contrato empresarial de API com Anthropic e Google que garante formalmente: <strong>nenhum documento ou dado enviado é retido nem utilizado para treinar ou aprimorar inteligências artificiais públicas</strong>.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="compliance-card">
+          <div class="compliance-icon">🔐</div>
+          <h3>Isolamento Criptográfico</h3>
+          <p>
+            Cada sociedade de advogados opera em cofre criptográfico dedicado com chave `org_id` isolada. Não existe cruzamento, compartilhamento ou vazamento de dados entre bancas distintas.
+          </p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="compliance-card">
+          <div class="compliance-icon">🎭</div>
+          <h3>Mascaramento de PII</h3>
+          <p>
+            Algoritmos de sanitização pré-processam CPFs, contas bancárias e dados sensíveis protegidos por segredo de justiça antes de qualquer análise de nuvem, respeitando rigorosamente a Lei 13.709/2018.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: PLANOS E PRECIFICAÇÃO -->
+  <section id="planos" style="background: rgba(7, 13, 30, 0.5);">
+    <div class="container">
+      <div class="section-eyebrow">Investimento Estratégico</div>
+      <h2 class="section-title">Planos Transparentes Desenhados para o <span class="highlight">Porte da sua Banca</span></h2>
+      <p class="section-desc">
+        Sem pegadinhas ou custos ocultos. Retorno sobre o investimento comprovado logo no primeiro mês de operação.
+      </p>
+
+      <div class="pricing-grid">
+        <!-- PLANO 1: BOUTIQUE -->
+        <div class="pricing-card">
+          <div class="plan-name">Themis Boutique</div>
+          <div class="plan-target">Para pequenas bancas de 2 a 5 advogados</div>
+          <div class="plan-price-box">
+            <div class="plan-price">R$ 1.850<small>/mês</small></div>
+            <div class="plan-setup">Setup & Implantação: R$ 3.500 (taxa única)</div>
+          </div>
+          <ul class="plan-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Até 5 usuários / seats</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Vigília em até 15 grupos WhatsApp</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Themis Edge Station local (1 máquina)</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Argos (Vigília) + Temis (Concierge)</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Themis Core (Elaboração de Peças)</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Mentor Jurídico interno</li>
+          </ul>
+          <a href="#demonstracao" class="plan-btn secondary">Selecionar Boutique</a>
+        </div>
+
+        <!-- PLANO 2: GROWTH -->
+        <div class="pricing-card featured">
+          <div class="pricing-featured-badge">Mais Escolhido pelas Bancas</div>
+          <div class="plan-name" style="color: var(--gold-light);">Themis Growth</div>
+          <div class="plan-target">Para escritórios consolidados de 6 a 20 advogados</div>
+          <div class="plan-price-box">
+            <div class="plan-price" style="color: var(--gold-light);">R$ 3.850<small>/mês</small></div>
+            <div class="plan-setup">Setup & Implantação: R$ 6.500 (taxa única)</div>
+          </div>
+          <ul class="plan-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> <strong>Até 20 usuários / seats</strong></li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> <strong>Vigília em até 60 grupos WhatsApp</strong></li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> <strong>Monitor Prioritário de DTEs e Caixas</strong></li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> <strong>Três Rotinas Diárias (07h, 12h e 18h)</strong></li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> <strong>Módulo de Revisão Adversarial Completa</strong></li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-light)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Integração com ClickUp / Kanban de Demandas</li>
+          </ul>
+          <a href="#demonstracao" class="plan-btn primary">Contratar Plano Growth</a>
+        </div>
+
+        <!-- PLANO 3: ENTERPRISE -->
+        <div class="pricing-card">
+          <div class="plan-name">Themis Enterprise</div>
+          <div class="plan-target">Para grandes bancas (20+ advogados e filiais)</div>
+          <div class="plan-price-box">
+            <div class="plan-price" style="font-size: 2rem;">R$ 7.900 a R$ 14.500<small>/mês</small></div>
+            <div class="plan-setup">Setup Customizado: a partir de R$ 15.000</div>
+          </div>
+          <ul class="plan-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Usuários e grupos <strong>ilimitados</strong></li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Cluster multi-estações por filial ou núcleo</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Integração com ERP (LegalOne, Projuris, Advbox)</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Overlays de estilo de escrita e teses da banca</li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Treinamento presencial executivo C-Level</li>
+          </ul>
+          <a href="#demonstracao" class="plan-btn secondary">Falar com Consultor</a>
+        </div>
+      </div>
+
+      <!-- Nota de Transparência Radical de IA -->
+      <div class="ai-transparency-note">
+        <div class="ai-note-icon">💡</div>
+        <div class="ai-note-text">
+          <p>
+            <strong>Transparência Radical no Consumo de IA:</strong> O escritório utiliza sua própria conta corporativa na Anthropic/Google (ou nós provisionamos a conta empresarial dele). Isso assegura que <strong>a sua banca nunca fica refém do fornecedor</strong>, paga o custo real de computação sem margens ocultas e tem garantia jurídica direta de não retenção de dados confidenciais.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: CALCULADORA INTERATIVA DE ROI -->
+  <section id="roi">
+    <div class="container">
+      <div class="roi-section-wrapper">
+        <div class="section-eyebrow">Matemática Operacional</div>
+        <h2 class="section-title">Simule o Retorno Financeiro para a <span class="highlight">Sua Estrutura</span></h2>
+        <p class="section-desc">
+          Compare o investimento na Themis contra o custo real invisível de perdas de prazos, horas extras e contratação de estagiários.
+        </p>
+
+        <div class="roi-grid">
+          <!-- Controles da Calculadora -->
+          <div class="calc-controls">
+            <div class="calc-control-group">
+              <label for="sliderAdv">
+                <span>Número de Advogados na Banca:</span>
+                <span class="val-badge" id="advCountLabel">10 advogados</span>
+              </label>
+              <input type="range" min="2" max="50" value="10" class="range-slider" id="sliderAdv">
+            </div>
+
+            <div class="calc-control-group">
+              <label for="sliderGrupos">
+                <span>Grupos de WhatsApp com Clientes:</span>
+                <span class="val-badge" id="gruposCountLabel">40 grupos</span>
+              </label>
+              <input type="range" min="5" max="150" value="40" class="range-slider" id="sliderGrupos">
+            </div>
+
+            <div style="background: rgba(12, 22, 46, 0.7); padding: 1.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5;">
+              <strong style="color: #fff;">Premissas Consolidadas do Mercado:</strong>
+              <ul style="margin-top: 0.5rem; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 4px;">
+                <li>Redução de 6h para 1h30 na redação de peças complexas.</li>
+                <li>Eliminação da necessidade de 2 estagiários dedicados a triar WhatsApp.</li>
+                <li>Risco zero de revelia ou preclusão em DTEs e intimações graves.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Resultado Dinâmico -->
+          <div class="calc-results-box">
+            <div class="calc-result-header">Economia Mensal Estimada</div>
+            <div class="calc-big-saving" id="savingTotal">R$ 14.150</div>
+            <div class="calc-saving-subtitle">Valor líquido mensal poupado em horas técnicas e estagiários</div>
+
+            <div class="calc-stats-subgrid">
+              <div class="calc-stat-sub">
+                <h4 id="horasPoupadas">180h</h4>
+                <p>Horas sêniores economizadas/mês</p>
+              </div>
+              <div class="calc-stat-sub">
+                <h4 style="color: var(--gold-light);" id="roiMultiplier">3,7x</h4>
+                <p>Retorno sobre a mensalidade</p>
+              </div>
+              <div class="calc-stat-sub">
+                <h4 style="color: var(--accent-cyan);">100%</h4>
+                <p>Vigília em tempo real nos grupos</p>
+              </div>
+              <div class="calc-stat-sub">
+                <h4 style="color: var(--accent-green);">Zero</h4>
+                <p>Risco de perda de prazo em DTE</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8: TRATAMENTO DE OBJEÇÕES -->
+  <section id="objecoes" style="background: rgba(7, 13, 30, 0.5);">
+    <div class="container">
+      <div class="section-eyebrow">Playbook de Respostas Rápidas</div>
+      <h2 class="section-title">Como a Themis Responde às <span class="highlight">Maiores Dúvidas de Sócios</span></h2>
+      <p class="section-desc">
+        Respostas técnicas e transparentes para as 6 principais perguntas feitas por diretores e comitês de gestão de escritórios.
+      </p>
+
+      <div class="accordion-list">
+        <!-- Item 1 -->
+        <div class="accordion-item active">
+          <div class="accordion-header">
+            <h4><span class="num">01.</span> "O ChatGPT ou o Copilot já fazem isso e são muito mais baratos?"</h4>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-body">
+            O ChatGPT é um assistente textual genérico: ele não vigia seus grupos de WhatsApp, não sabe quem é preposto ou sócio na sua base, não tem integração com ERPs e, o mais grave, <strong>ele alucina prazos e inventa jurisprudência</strong>. Além disso, colar petições de clientes em chats públicos fere o sigilo fiduciário e a LGPD.
+            <blockquote>
+              "A Themis é especializada: prazos são calculados em código determinístico, todo fato é amarrado à folha exata do processo e seus dados operam em máquina dedicada sob contrato empresarial com Zero Data Retention."
+            </blockquote>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <h4><span class="num">02.</span> "A OAB permite o uso de Inteligência Artificial no escritório de advocacia?"</h4>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-body">
+            Sim! O <strong>Provimento 205/2021 do Conselho Federal da OAB</strong> autoriza expressamente o uso de inteligência artificial como instrumento de apoio à produtividade da advocacia. O que o código proíbe é a delegação da decisão técnica ou a assinatura por máquina.
+            <blockquote>
+              "A Themis foi construída sob o princípio da Revisão Humana Obrigatória: ela gera minutas estruturadas e pareceres pré-protocolo. Ela nunca assina e nunca protocola nada sozinha. O advogado mantém 100% da soberania técnica com seu token físico."
+            </blockquote>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <h4><span class="num">03.</span> "O WhatsApp não vai bloquear o número de telefone da minha banca?"</h4>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-body">
+            Essa foi a maior preocupação na engenharia do Themis Jurídico OS. Por isso, a plataforma não utiliza disparadores piratas de spam:
+            <ul style="margin-top: 0.5rem; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 4px;">
+              <li>Opera em linha dedicada com aquecimento prévio de 14 dias;</li>
+              <li>O agente Argos trabalha em modo 100% silencioso (somente leitura);</li>
+              <li>Quando o Concierge Temis responde, aplica <strong>delays estocásticos humanos (30s a 90s)</strong>, simula presença de digitação e obedece a um teto rígido de 100 mensagens/dia. O risco de banimento operacional é rigorosamente nulo.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <h4><span class="num">04.</span> "Nós já usamos um ERP Jurídico (LegalOne, Projuris, Advbox). Por que precisamos da Themis?"</h4>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-body">
+            O seu ERP é o cofre processual do escritório: ele armazena o andamento histórico e emite faturamento. Mas ele <strong>não sabe o que está acontecendo nos 60 grupos de WhatsApp dos seus clientes agora</strong>. Ele não detecta urgências, não calcula o tempo de espera do cliente e não redige uma petição lendo 800 páginas de PDF.
+            <blockquote>
+              "A Themis não substitui o seu ERP; ela alimenta e protege o seu ERP, garantindo que nenhuma notificação enviada pelo cliente no WhatsApp fique esquecida."
+            </blockquote>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <h4><span class="num">05.</span> "Minha equipe é resistente a tecnologia e não vai querer alimentar outro sistema."</h4>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-body">
+            Essa é a grande vantagem da Themis: <strong>a sua equipe não precisa alimentar nada</strong>. A Themis lê o WhatsApp que eles já usam todos os dias e entrega os alertas prontos no e-mail ou no ClickUp. Para redigir peças, o advogado apenas envia o PDF dos autos e recebe o plano silogístico estruturado.
+            <blockquote>
+              "Em vez de aumentar a carga de trabalho burocrático, a Themis poupa de 3 a 4 horas de digitação manual por dia de cada advogado."
+            </blockquote>
+          </div>
+        </div>
+
+        <!-- Item 6 -->
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <h4><span class="num">06.</span> "Achei o valor elevado para o nosso momento atual."</h4>
+            <span class="accordion-icon">▼</span>
+          </div>
+          <div class="accordion-body">
+            Vamos olhar a matemática dos custos: para fazer o trabalho que a Themis realiza (vigiar dezenas de grupos 24h, alertar DTEs em tempo real, fazer triagem de urgência e auditar peças contra a parte contrária), o escritório precisaria contratar no mínimo 2 estagiários ou 1 paralegal dedicado, custando mais de R$ 4.500/mês entre bolsa, encargos e treinamento — com alta taxa de erro humano.
+            <blockquote>
+              "A Themis entrega precisão matemática, sem férias, sem 13º e sem risco de perda de prazo por R$ 3.850/mês. Um único processo salvo de preclusão paga mais de 3 anos de assinatura da Themis."
+            </blockquote>
+          </div>
+        </div>
+      </div>
+
+      <!-- Script de Abordagem Ativa Box -->
+      <div class="pitch-box">
+        <div class="pitch-header">
+          <span class="pitch-title">🎯 Script de Abordagem Comercial (Outbound para Sócios no WhatsApp/LinkedIn)</span>
+          <button class="copy-btn" id="copyPitchBtn">Copiar Script</button>
+        </div>
+        <div class="pitch-text" id="pitchScriptContent">
+"Dr. [Nome], tudo bem? Acompanho o trabalho do [Nome do Escritório].
+
+Uma pergunta rápida e direta de gestão: hoje, se um dos seus clientes enviar uma notificação fiscal grave de DTE ou uma penhora às 21h em um dos grupos de WhatsApp da banca, o senhor conta com um sistema que aciona um alerta vermelho imediato na controladoria, ou depende de alguém lembrar de ver a mensagem no dia seguinte?
+
+Estruturamos para bancas como a sua um sistema de IA híbrida que vigia os grupos, garante SLA de resposta em menos de 2h e redige peças com zero alucinação folha a folha nos autos.
+
+Teria 15 minutos nesta quinta às 10h ou às 15h para ver como isso funciona em um processo real?"
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 9: IMPLANTAÇÃO EM 14 DIAS -->
+  <section id="implantacao">
+    <div class="container">
+      <div class="section-eyebrow">Rápido Time-to-Value</div>
+      <h2 class="section-title">Implantação Sem Fricção em <span class="highlight">14 Dias</span></h2>
+      <p class="section-desc">
+        Metodologia validada para ativar o sistema no seu escritório sem interromper o expediente nem sobrecarregar seus advogados.
+      </p>
+
+      <div class="timeline-container">
+        <div class="timeline-grid">
+          <!-- Step 1 -->
+          <div class="timeline-step">
+            <span class="timeline-step-badge">Dias 1 a 3</span>
+            <h4>Saneamento & Setup</h4>
+            <p>Mapeamento de todos os grupos de WhatsApp, configuração da matriz de legitimidade e provisionamento da máquina Edge Station dedicada.</p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="timeline-step">
+            <span class="timeline-step-badge">Dias 4 a 7</span>
+            <h4>Entrada Silenciosa</h4>
+            <p>Argos entra nos grupos em modo somente leitura (observador). Alimenta o banco local sem disparar nenhuma mensagem, gerando o raio-X da operação.</p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="timeline-step">
+            <span class="timeline-step-badge">Dias 8 a 11</span>
+            <h4>Treinamento & Core</h4>
+            <p>A equipe passa a utilizar o Themis Core SaaS para leitura de PDFs de autos e elaboração de peças em plano silogístico.</p>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="timeline-step">
+            <span class="timeline-step-badge">Dias 12 a 14</span>
+            <h4>Go-Live Concierge</h4>
+            <p>Ativação gradual do Concierge Temis nos grupos prioritários com a esteira de aprovação assistida pelo advogado responsável.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 10: DEMONSTRAÇÃO FATAL & CTA -->
+  <section id="demonstracao">
+    <div class="container">
+      <div class="cta-card">
+        <div class="section-eyebrow" style="background: rgba(212, 175, 55, 0.2); border-color: var(--gold-light);">O Próximo Passo</div>
+        <h2 class="cta-title">Agende o Teste de Fogo com os <span class="highlight">Autos Reais da Sua Banca</span></h2>
+        <p class="cta-desc">
+          Não acredite em promessas em slides. Envie-nos o PDF de um processo judicial complexo da sua banca e nós realizaremos uma demonstração ao vivo em 20 minutos.
+        </p>
+
+        <div class="cta-steps-grid">
+          <div class="cta-step-item">
+            <div class="cta-step-num">01</div>
+            <div class="cta-step-text"><strong>Auditoria dos Autos em 3 Minutos:</strong> Extração da linha do tempo e fatos documentados folha a folha na sua frente.</div>
+          </div>
+          <div class="cta-step-item">
+            <div class="cta-step-num">02</div>
+            <div class="cta-step-text"><strong>Revisão Adversarial Ao Vivo:</strong> Simulação de julgamento apontando pontos cegos na tese da contestação ou recurso.</div>
+          </div>
+          <div class="cta-step-item">
+            <div class="cta-step-num">03</div>
+            <div class="cta-step-text"><strong>Diagnóstico de WhatsApp:</strong> Raio-X de quantas mensagens de clientes estão sem resposta qualificada no seu escritório hoje.</div>
+          </div>
+        </div>
+
+        <div class="cta-actions">
+          <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20demonstra%C3%A7%C3%A3o%20do%20Themis%20Jur%C3%ADdico%20OS%20com%20autos%20reais." target="_blank" class="btn-hero-primary" style="font-size: 1.1rem; padding: 1.1rem 2.5rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            Agendar Demonstração Executiva via WhatsApp
+          </a>
+          <a href="mailto:contato@ecossistemalive.com.br?subject=Solicita%C3%A7%C3%A3o%20de%20Demonstra%C3%A7%C3%A3o%20-%20Themis%20Jur%C3%ADdico%20OS" class="btn-hero-secondary" style="font-size: 1.1rem; padding: 1.1rem 2.2rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            Solicitar por E-mail Corporativo
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="page-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h4>THEMIS JURÍDICO OS</h4>
+          <p>
+            O Sistema Operacional de Inteligência Artificial Especializada e Governança de SLA para Sociedades de Advogados. Produto oficial do Ecossistema Live.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Módulos da Suíte</h5>
+          <ul>
+            <li><a href="#modulos">Argos (Vigília Silenciosa)</a></li>
+            <li><a href="#modulos">Temis (Concierge & SLA)</a></li>
+            <li><a href="#modulos">Themis Core (Peticionamento)</a></li>
+            <li><a href="#modulos">Mentor Jurídico Interno</a></li>
+            <li><a href="#modulos">Revisão Adversarial</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Compliance & Segurança</h5>
+          <ul>
+            <li><a href="#seguranca">Provimento OAB 205/2021</a></li>
+            <li><a href="#seguranca">Lei 13.709/2018 (LGPD)</a></li>
+            <li><a href="#seguranca">Zero Data Retention</a></li>
+            <li><a href="#seguranca">Revisão Humana Obrigatória</a></li>
+            <li><a href="#seguranca">Envelope Anti-Ban WhatsApp</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Atendimento Executivo</h5>
+          <ul>
+            <li><a href="mailto:contato@ecossistemalive.com.br">contato@ecossistemalive.com.br</a></li>
+            <li><a href="https://ecossistemalive.com.br" target="_blank">ecossistemalive.com.br</a></li>
+            <li><a href="#demonstracao">Solicitar Diagnóstico</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 Ecossistema Live · Live Consultoria. Todos os direitos reservados. Confidencial e exclusivo para sócios de escritórios.
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--gold-light);">
+          THEMIS OS BUILD V2.0 · MULTI-TENANT & EDGE SOVEREIGN
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive JavaScript Logic -->
+  <script>
+    // 1. Reading Progress Bar & Header Shadow
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      document.getElementById('progress-bar').style.width = scrolled + '%';
+
+      const nav = document.getElementById('topNav');
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // 2. Interactive ROI Calculator Logic
+    const sliderAdv = document.getElementById('sliderAdv');
+    const sliderGrupos = document.getElementById('sliderGrupos');
+    const advCountLabel = document.getElementById('advCountLabel');
+    const gruposCountLabel = document.getElementById('gruposCountLabel');
+    const savingTotal = document.getElementById('savingTotal');
+    const horasPoupadas = document.getElementById('horasPoupadas');
+    const roiMultiplier = document.getElementById('roiMultiplier');
+
+    function updateCalculator() {
+      const adv = parseInt(sliderAdv.value, 10);
+      const grupos = parseInt(sliderGrupos.value, 10);
+
+      advCountLabel.textContent = `${adv} advogado${adv > 1 ? 's' : ''}`;
+      gruposCountLabel.textContent = `${grupos} grupo${grupos > 1 ? 's' : ''}`;
+
+      // Cálculo de Horas Poupadas: 18h por advogado/mês em peças e pesquisas
+      const horas = Math.round(adv * 18);
+      horasPoupadas.textContent = `${horas}h`;
+
+      // Economia Financeira:
+      // - Custo de estagiários poupados: se grupos >= 20, poupa 1 estagiário (R$ 1.800). Se >= 40, poupa 2 (R$ 3.600). Se >= 80, poupa 3 (R$ 5.400).
+      let estagiariosSaved = 1;
+      if (grupos >= 40) estagiariosSaved = 2;
+      if (grupos >= 80) estagiariosSaved = 3;
+      const economiaEstagiarios = estagiariosSaved * 1800;
+
+      // - Valor da hora técnica sênior recuperada para captação/estratégia (R$ 65/h média líquida)
+      const valorHoras = horas * 65;
+
+      // Mensalidade base da Themis conforme porte
+      let mensalidadeThemis = 1850;
+      if (adv > 5 || grupos > 15) mensalidadeThemis = 3850;
+      if (adv > 20 || grupos > 60) mensalidadeThemis = 7900;
+
+      const economiaBruta = economiaEstagiarios + valorHoras;
+      const economiaLiquida = Math.max(0, economiaBruta - mensalidadeThemis);
+
+      savingTotal.textContent = `R$ ${economiaLiquida.toLocaleString('pt-BR')}`;
+      
+      const mult = (economiaBruta / mensalidadeThemis).toFixed(1);
+      roiMultiplier.textContent = `${mult}x`;
+    }
+
+    sliderAdv.addEventListener('input', updateCalculator);
+    sliderGrupos.addEventListener('input', updateCalculator);
+    updateCalculator();
+
+    // 3. Objections Accordion Logic
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    accordionHeaders.forEach(header => {
+      header.addEventListener('click', () => {
+        const item = header.parentElement;
+        const isActive = item.classList.contains('active');
+        
+        document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
+        
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // 4. Copy Pitch Script to Clipboard
+    const copyBtn = document.getElementById('copyPitchBtn');
+    const pitchText = document.getElementById('pitchScriptContent');
+
+    copyBtn.addEventListener('click', () => {
+      const textToCopy = pitchText.innerText.trim();
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        copyBtn.textContent = '✓ Copiado com Sucesso!';
+        copyBtn.style.background = '#10b981';
+        copyBtn.style.color = '#fff';
+        setTimeout(() => {
+          copyBtn.textContent = 'Copiar Script';
+          copyBtn.style.background = '';
+          copyBtn.style.color = '';
+        }, 3000);
+      });
+    });
+  </script>
+</body>
+</html>
